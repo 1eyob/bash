@@ -1,8 +1,10 @@
 #!/bin/bash
 
 echo  "1.change ownership"
-echo  "2.hide my directe/folder"
-echo "3.unhide my directe/folder"
+echo  "2.hide my file/folder with specific directory"
+echo "3.unhide my file/folder with specific directory"
+echo "4.ecrypt/Decrypt file/folder"
+
 read p
 case $p in
 1)
@@ -13,15 +15,11 @@ read n
 echo "<<enter groupname>> "
 read g
 
-echo "<<give a directory please?>> "
+echo "<<give a directory please?   starting like /home/rootuser/...>> "
 read direct
-# //cd $direct
-# //ls -lh
-# echo "<<enter directe or floder name>>"
-# read direct
 
 echo 
- sudo chown -H $n:$g  "$direct"  #&& { echo "The directe is now permissioned to user $n and $g "; }
+ sudo chown -H $n:$g  "$direct"  
 echo "<<do u want to change the mode Y/N?>>"
 read ch
 if [ $ch == 'y' ] || [ $ch == 'Y' ]
@@ -159,36 +157,63 @@ if [ $n3 == 1 ]
  
 fi;;
 2)
-echo "write the directory of the file/folder"
+echo "<<give a directory of file/folder please?   starting like /home/rootuser/...>> "
 read dirr
-echo "write afile/floder u want to hide"
+echo "<<files/folders in the $dirr>>" 
+ls $dirr
+echo "do u wanna to hide th file/folder in the same directory Y\N? above"
+read hch
+if [ $hch == 'y' ] || [ $hch == 'Y' ]
+then
+
+
+echo "write afile/floder u want to hide if there is a file/folder"
 read pt
 
-#ls -lh 
-#echo "enter directe/folder name u wanna to hide"
-#read hdirecte
-#for $dirr in */; 
-#do
-#x=$dirr;
-#done
-#mv -v $dirr .$x;;
 for i in $dirr
 do
 mv "${dirr}${pt}"  "${dirr}.${pt}"
-done;;
+done
+elif [ $hch == 'n' ] || [ $hch == 'N' ]
+then
+echo "enter  a new existing Directory please "
+read hdir
+echo "write afile/floder u want to hide if there is a file/folder"
+read pt
+for i in $dirr
+do
+mv "${dirr}${pt}"  "${hdir}.${pt}"
+done
+fi;;
 3)
-echo "write a directory of the directe" 
-read $dirr1
+echo "<<give a directory of file/folder please?   starting like /home/rootuser/...>> "
+read dirr1
+echo "<<lists of hidden file in in the $dirr1"
+ls -a  $dirr1
+echo "do want to unhide the file/folder in the same directory above? Y/N"
+read unch
+if [ $unch == 'y' ] || [ $unch == 'y' ]
+then
 
-echo "write afile/floder u want to unhide like"
+echo "write a file/folder u want to unhide if there is hidden file"
 read pt1
 
-#mv -v ".$i" "$dirr";;
-#echo "enter directe name u want to unhide"
-#read undirecte
-for i in $dirr1;
-do
-mv ${dirr1}.${pt1} "${dirr1}${pt1}"
-done;;
+for i in $dirr1
+do 
+mv "$dirr1.$pt1"  "$dirr1$pt1"
+done
+elif [ $unch == 'n' ] || [ $unch == 'N' ]
+then
+echo "enter a new exixting directory please?"
+read undir
+echo "write a file/folder u want to unhide if there is hidden file"
+read pt1
+
+for i in $dirr1
+do 
+mv "$dirr1.$pt1"  "$undir$pt1"
+done
+fi;;
+4)
 
 esac
