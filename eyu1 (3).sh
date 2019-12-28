@@ -21,7 +21,7 @@ read direct
 # read direct
 
 echo 
- sudo chown "$n" "~/Documents/abebe";  #&& { echo "The directe is now permissioned to user $n and $g "; }
+ sudo chown -H $n:$g  "$direct"  #&& { echo "The directe is now permissioned to user $n and $g "; }
 echo "<<do u want to change the mode Y/N?>>"
 read ch
 if [ $ch == 'y' ] || [ $ch == 'Y' ]
@@ -159,27 +159,36 @@ if [ $n3 == 1 ]
  
 fi;;
 2)
-echo "write the directory of the directe"
+echo "write the directory of the file/folder"
 read dirr
-pwd
-cd $dirr
+echo "write afile/floder u want to hide"
+read pt
 
 #ls -lh 
 #echo "enter directe/folder name u wanna to hide"
 #read hdirecte
-echo $dirr
+#for $dirr in */; 
+#do
+#x=$dirr;
+#done
+#mv -v $dirr .$x;;
 for i in $dirr
 do
-mv "$i" ".$i"
+mv "${dirr}${pt}"  "${dirr}.${pt}"
 done;;
 3)
 echo "write a directory of the directe" 
 read $dirr1
+
+echo "write afile/floder u want to unhide like"
+read pt1
+
+#mv -v ".$i" "$dirr";;
 #echo "enter directe name u want to unhide"
 #read undirecte
-for i in $dirr1
+for i in $dirr1;
 do
-mv ".$i" "$i"
+mv ${dirr1}.${pt1} "${dirr1}${pt1}"
 done;;
 
 esac
